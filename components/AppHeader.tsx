@@ -52,7 +52,7 @@ export default function AppHeader() {
   };
 
   return (
-    <div className="navbar bg-base-100 shadow-sm">
+    <div className="navbar bg-base-100 shadow-sm fixed top-0 left-0 right-0 z-50">
       {/* 左侧用户信息 */}
       <div className="navbar-start">
         <div className="flex flex-col gap-1 px-4">
@@ -73,13 +73,14 @@ export default function AppHeader() {
           )}
       </div>
         
-        {/* 连接状态指示器 */}
-        <div className="ml-2">
+        
+      </div>
+      {/* 连接状态指示器 */}
+      {/* <div className="flex   gap-1">
           <div className={`badge badge-sm ${isConnected ? 'badge-success' : 'badge-warning'}`}>
             {isConnected ? '已连接' : '未连接'}
           </div>
-        </div>
-      </div>
+        </div> */}
      
       {/* 右侧刷新按钮 */}
       <div className="navbar-end">
