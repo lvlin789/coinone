@@ -41,9 +41,9 @@ interface TabSwitcherProps {
 
 function TabSwitcher({ activeTab, onTabChange }: TabSwitcherProps) {
   const tabs = [
-    { id: 'deposit', label: '存币地址', icon: '📥' },
-    { id: 'withdrawal', label: '提币地址', icon: '📤' },
-    { id: 'withdraw', label: '提币', icon: '💸' },
+    { id: 'deposit', label: 'Deposit Address', icon: '📥' },
+    { id: 'withdrawal', label: 'Withdrawal Address', icon: '📤' },
+    { id: 'withdraw', label: 'Withdraw', icon: '💸' },
   ];
 
   return (
@@ -103,7 +103,7 @@ function DepositAddressPage() {
     try {
       await navigator.clipboard.writeText(address);
       // 这里可以添加提示消息
-      console.log(`已复制 ${currency} 地址: ${address}`);
+      console.log(`Copied ${currency} address: ${address}`);
     } catch (error) {
       console.error('复制失败:', error);
     }
@@ -140,7 +140,7 @@ function DepositAddressPage() {
               
               <div className="space-y-3">
                 <div>
-                  <label className="text-sm font-medium text-base-content/70 mb-1 block">存币地址</label>
+                  <label className="text-sm font-medium text-base-content/70 mb-1 block">Deposit Address</label>
                   <div className="flex items-center gap-2">
                     <input 
                       type="text" 
@@ -193,7 +193,7 @@ function DepositAddressPage() {
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
-        <h2 className="text-xl font-semibold">存币地址列表</h2>
+        <h2 className="text-xl font-semibold">Deposit Address List</h2>
         <button 
           className="btn btn-outline btn-sm"
           onClick={loadDepositAddresses}
@@ -206,7 +206,7 @@ function DepositAddressPage() {
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
             </svg>
           )}
-          刷新
+          Refresh
         </button>
       </div>
       
@@ -216,7 +216,7 @@ function DepositAddressPage() {
           <svg xmlns="http://www.w3.org/2000/svg" className="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z" />
           </svg>
-          <span>请先配置API密钥以查看存币地址</span>
+          <span>Please configure API keys first to view deposit addresses</span>
         </div>
       )}
 
@@ -235,7 +235,7 @@ function DepositAddressPage() {
         <div className="flex justify-center py-8">
           <div className="flex items-center gap-2">
             <span className="loading loading-spinner loading-md"></span>
-            <span className="text-sm text-base-content/70">加载中...</span>
+            <span className="text-sm text-base-content/70">Loading...</span>
           </div>
         </div>
       )}
@@ -249,7 +249,7 @@ function DepositAddressPage() {
                 <svg xmlns="http://www.w3.org/2000/svg" className="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
-                <span>请确认地址正确后再进行转账，错误的地址可能导致资产丢失</span>
+                <span>Please verify the address is correct before making transfers, incorrect addresses may result in asset loss</span>
               </div>
 
                              {depositAddresses.btc && renderAddressCard('btc', depositAddresses.btc)}
@@ -261,10 +261,10 @@ function DepositAddressPage() {
             <div className="text-center py-8">
               <div className="text-4xl mb-2">📭</div>
               <h3 className="text-lg font-semibold text-base-content/70 mb-1">
-                暂无存币地址
+                No Deposit Address
               </h3>
               <p className="text-sm text-base-content/50">
-                无法获取存币地址信息，请检查API配置
+                Unable to retrieve deposit address information, please check API configuration
               </p>
             </div>
           )}
@@ -307,7 +307,7 @@ function WithdrawalAddressPage() {
   const copyToClipboard = async (address: string, label: string) => {
     try {
       await navigator.clipboard.writeText(address);
-      console.log(`已复制 ${label}: ${address}`);
+      console.log(`Copied ${label}: ${address}`);
     } catch (error) {
       console.error('复制失败:', error);
     }
@@ -370,13 +370,13 @@ function WithdrawalAddressPage() {
           {/* 地址信息 */}
           <div className="space-y-2">
             <div className="flex items-center gap-2">
-              <span className="text-sm text-base-content/70 w-16 flex-shrink-0">地址:</span>
+              <span className="text-sm text-base-content/70 w-16 flex-shrink-0">Address:</span>
               <div className="flex-1 flex items-center gap-2">
                 <span className="font-mono text-sm break-all flex-1">{addr.address}</span>
                 <button 
                   className="btn btn-ghost btn-xs"
-                  onClick={() => copyToClipboard(addr.address, `${addr.nickname} 地址`)}
-                  title="复制地址"
+                  onClick={() => copyToClipboard(addr.address, `${addr.nickname} address`)}
+                  title="Copy address"
                 >
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
@@ -395,7 +395,7 @@ function WithdrawalAddressPage() {
                   <button 
                     className="btn btn-ghost btn-xs"
                     onClick={() => copyToClipboard(addr.secondary_address!, `${addr.nickname} ${addr.currency.toUpperCase() === 'XRP' ? 'Tag' : 'Memo'}`)}
-                    title={`复制${addr.currency.toUpperCase() === 'XRP' ? 'Tag' : 'Memo'}`}
+                    title={`Copy ${addr.currency.toUpperCase() === 'XRP' ? 'Tag' : 'Memo'}`}
                   >
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
@@ -412,7 +412,7 @@ function WithdrawalAddressPage() {
 
   // 货币选项
   const currencies = [
-    { value: '', label: '全部币种' },
+    { value: '', label: 'All Currencies' },
     { value: 'BTC', label: 'Bitcoin (BTC)' },
     { value: 'ETH', label: 'Ethereum (ETH)' },
     { value: 'XRP', label: 'Ripple (XRP)' },
@@ -423,7 +423,7 @@ function WithdrawalAddressPage() {
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
-        <h2 className="text-xl font-semibold">提币地址列表</h2>
+        <h2 className="text-xl font-semibold">Withdrawal Address List</h2>
         <div className="flex items-center gap-2">
           <select 
             className="select select-bordered select-sm min-w-32"
@@ -449,7 +449,7 @@ function WithdrawalAddressPage() {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
               </svg>
             )}
-            刷新
+            Refresh
           </button>
         </div>
       </div>
@@ -460,7 +460,7 @@ function WithdrawalAddressPage() {
           <svg xmlns="http://www.w3.org/2000/svg" className="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z" />
           </svg>
-          <span>请先配置API密钥以查看提币地址</span>
+          <span>Please configure API keys first to view withdrawal addresses</span>
         </div>
       )}
 
@@ -479,7 +479,7 @@ function WithdrawalAddressPage() {
         <div className="flex justify-center py-8">
           <div className="flex items-center gap-2">
             <span className="loading loading-spinner loading-md"></span>
-            <span className="text-sm text-base-content/70">加载中...</span>
+            <span className="text-sm text-base-content/70">Loading...</span>
           </div>
         </div>
       )}
@@ -490,7 +490,7 @@ function WithdrawalAddressPage() {
           <svg xmlns="http://www.w3.org/2000/svg" className="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z" />
           </svg>
-          <span>仅显示已完成2次认证及收取人信息注册的地址，只有这些地址才能用于API提币</span>
+          <span>Only shows addresses that have completed 2FA and recipient information registration, only these addresses can be used for API withdrawals</span>
         </div>
       )}
 
@@ -503,12 +503,12 @@ function WithdrawalAddressPage() {
             <div className="text-center py-8">
               <div className="text-4xl mb-2">📝</div>
               <h3 className="text-lg font-semibold text-base-content/70 mb-1">
-                暂无提币地址
+                No Withdrawal Address
               </h3>
               <p className="text-sm text-base-content/50">
                 {selectedCurrency 
-                  ? `没有找到 ${selectedCurrency} 的提币地址，请在官网添加` 
-                  : '还没有添加任何提币地址，请先在官网完成地址认证'}
+                  ? `No withdrawal addresses found for ${selectedCurrency}, please add on the official website` 
+                  : 'No withdrawal addresses have been added yet, please complete address verification on the official website first'}
               </p>
             </div>
           )}
@@ -669,14 +669,14 @@ function WithdrawPage() {
 
   return (
     <div className="space-y-6">
-      <h2 className="text-xl font-semibold">提币</h2>
+      <h2 className="text-xl font-semibold">Withdraw</h2>
       
       {/* 安全提醒 */}
       <div className="alert alert-error">
         <svg xmlns="http://www.w3.org/2000/svg" className="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
         </svg>
-        <span>提币操作不可逆，请务必确认所有信息无误</span>
+        <span>Withdrawal operations are irreversible, please ensure all information is correct</span>
       </div>
 
       {/* 连接状态提示 */}
@@ -685,7 +685,7 @@ function WithdrawPage() {
           <svg xmlns="http://www.w3.org/2000/svg" className="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z" />
           </svg>
-          <span>请先配置API密钥</span>
+          <span>Please configure API keys first</span>
         </div>
       )}
 
@@ -707,10 +707,10 @@ function WithdrawPage() {
               {/* 币种选择 */}
               <div className="form-control">
                 <label className="label">
-                  <span className="label-text font-medium">选择币种</span>
+                  <span className="label-text font-medium">Select Currency</span>
                   {selectedCurrency && (
                     <span className="label-text-alt">
-                      可用余额: {getCurrentBalance()} {selectedCurrency}
+                      Available: {getCurrentBalance()} {selectedCurrency}
                     </span>
                   )}
                 </label>
@@ -720,7 +720,7 @@ function WithdrawPage() {
                   onChange={(e) => setSelectedCurrency(e.target.value)}
                   disabled={isLoading || isLoadingData}
                 >
-                  <option value="">请选择要提币的币种</option>
+                  <option value="">Select currency to withdraw</option>
                   {supportedCurrencies.map(currency => (
                     <option key={currency.value} value={currency.value}>
                       {currency.label}
@@ -733,9 +733,9 @@ function WithdrawPage() {
               {selectedCurrency && (
                 <div className="form-control">
                   <label className="label">
-                    <span className="label-text font-medium">提币地址</span>
+                    <span className="label-text font-medium">Withdrawal Address</span>
                     <span className="label-text-alt">
-                      {withdrawalAddresses.length} 个已认证地址
+                      {withdrawalAddresses.length} verified addresses
                     </span>
                   </label>
                   <select
@@ -744,7 +744,7 @@ function WithdrawPage() {
                     onChange={(e) => handleAddressChange(e.target.value)}
                     disabled={isLoading || isLoadingData || withdrawalAddresses.length === 0}
                   >
-                    <option value="">请选择提币地址</option>
+                    <option value="">Select withdrawal address</option>
                     {withdrawalAddresses.map((addr, index) => (
                       <option key={`${addr.address}-${index}`} value={addr.address}>
                         {addr.nickname} - {addr.address.slice(0, 8)}...{addr.address.slice(-8)}
@@ -754,7 +754,7 @@ function WithdrawPage() {
                   {withdrawalAddresses.length === 0 && selectedCurrency && (
                     <div className="label">
                       <span className="label-text-alt text-warning">
-                        没有找到 {selectedCurrency} 的已认证提币地址，请先在官网添加
+                        No verified withdrawal addresses found for {selectedCurrency}, please add on the official website first
                       </span>
                     </div>
                   )}
@@ -765,16 +765,16 @@ function WithdrawPage() {
               {selectedCurrency && selectedAddress && (
                 <div className="form-control">
                   <label className="label">
-                    <span className="label-text font-medium">提币数量</span>
+                    <span className="label-text font-medium">Withdrawal Amount</span>
                     <span className="label-text-alt">
-                      最小: {getMinAmount()} {selectedCurrency}
+                      Minimum: {getMinAmount()} {selectedCurrency}
                     </span>
                   </label>
                   <div className="join">
                     <input 
                       type="number"
                       step="any"
-                      placeholder={`最小 ${getMinAmount()}`}
+                      placeholder={`Minimum ${getMinAmount()}`}
                       className="input input-bordered join-item flex-1"
                       value={amount}
                       onChange={(e) => setAmount(e.target.value)}
@@ -785,14 +785,14 @@ function WithdrawPage() {
                       onClick={setMinAmount}
                       disabled={isLoading || isSubmitting}
                     >
-                      最小
+                      Min
                     </button>
                     <button 
                       className="btn btn-outline join-item"
                       onClick={setMaxAmount}
                       disabled={isLoading || isSubmitting}
                     >
-                      全部
+                      Max
                     </button>
                   </div>
                 </div>
@@ -816,10 +816,10 @@ function WithdrawPage() {
                 {isLoading || isSubmitting ? (
                   <>
                     <span className="loading loading-spinner loading-sm"></span>
-                    处理中...
+                    Processing...
                   </>
                 ) : (
-                  '确认提币'
+                  'Confirm Withdrawal'
                 )}
               </button>
             </div>
@@ -831,19 +831,19 @@ function WithdrawPage() {
       {showConfirmModal && (
         <div className="modal modal-open">
           <div className="modal-box">
-            <h3 className="font-bold text-lg mb-4">确认提币信息</h3>
+            <h3 className="font-bold text-lg mb-4">Confirm Withdrawal Details</h3>
             
             <div className="space-y-3 mb-6">
               <div className="flex justify-between">
-                <span className="text-base-content/70">币种:</span>
+                <span className="text-base-content/70">Currency:</span>
                 <span className="font-medium">{selectedCurrency}</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-base-content/70">数量:</span>
+                <span className="text-base-content/70">Amount:</span>
                 <span className="font-medium">{amount} {selectedCurrency}</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-base-content/70">提币地址:</span>
+                <span className="text-base-content/70">Withdrawal Address:</span>
                 <span className="font-mono text-sm break-all">
                   {selectedAddress}
                 </span>
@@ -862,7 +862,7 @@ function WithdrawPage() {
               <svg xmlns="http://www.w3.org/2000/svg" className="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z" />
               </svg>
-              <span className="text-sm">提币操作不可撤销，请仔细核对所有信息</span>
+              <span className="text-sm">Withdrawal operations cannot be cancelled, please carefully verify all information</span>
             </div>
             
             <div className="modal-action">
@@ -871,7 +871,7 @@ function WithdrawPage() {
                 onClick={() => setShowConfirmModal(false)}
                 disabled={isSubmitting}
               >
-                取消
+                Cancel
               </button>
               <button 
                 className="btn btn-primary"
@@ -881,10 +881,10 @@ function WithdrawPage() {
                 {isSubmitting ? (
                   <>
                     <span className="loading loading-spinner loading-sm"></span>
-                    提币中...
+                    Withdrawing...
                   </>
                 ) : (
-                  '确认提币'
+                  'Confirm Withdrawal'
                 )}
               </button>
             </div>
@@ -916,8 +916,8 @@ export default function WalletAddress() {
     <div className="container mx-auto p-4 max-w-4xl">
       {/* 页面标题 */}
       <div className="mb-6">
-        <h1 className="text-2xl font-bold text-base-content">钱包地址管理</h1>
-        <p className="text-base-content/60 mt-1">管理您的存币地址、提币地址和进行提币操作</p>
+        <h1 className="text-2xl font-bold text-base-content">Wallet Address Management</h1>
+        <p className="text-base-content/60 mt-1">Manage your deposit addresses, withdrawal addresses and withdrawal operations</p>
       </div>
 
       {/* Tab选项卡 */}

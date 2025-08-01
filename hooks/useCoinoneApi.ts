@@ -43,7 +43,7 @@ export function useCoinoneApi() {
       
       return true;
     } catch (error) {
-      setError({ message: '保存API密钥失败' });
+      setError({ message: 'Failed to save API key' });
       return false;
     }
   }, []);
@@ -57,7 +57,7 @@ export function useCoinoneApi() {
       setError(null);
       return true;
     } catch (error) {
-      setError({ message: '删除API密钥失败' });
+      setError({ message: 'Failed to delete API key' });
       return false;
     }
   }, []);
@@ -67,7 +67,7 @@ export function useCoinoneApi() {
     const credsToUse = testCredentials || credentials;
     
     if (!credsToUse) {
-      setError({ message: 'API密钥未配置' });
+      setError({ message: 'API key not configured' });
       return false;
     }
 
@@ -79,7 +79,7 @@ export function useCoinoneApi() {
       setError(null);
       return success;
     } catch (error) {
-      const errorMessage = error instanceof Error ? error.message : '连接测试失败';
+      const errorMessage = error instanceof Error ? error.message : 'Connection test failed';
       setError({ message: errorMessage });
       return false;
     } finally {
@@ -98,7 +98,7 @@ export function useCoinoneApi() {
       const result = await coinoneClient.getRangeUnits(quoteCurrency, targetCurrency);
       return result;
     } catch (error) {
-      const errorMessage = error instanceof Error ? error.message : '获取报价单位失败';
+      const errorMessage = error instanceof Error ? error.message : 'Failed to get quote units';
       setError({ message: errorMessage });
       throw error;
     } finally {
@@ -115,7 +115,7 @@ export function useCoinoneApi() {
       const result = await coinoneClient.getOrderbook(quoteCurrency, targetCurrency, size);
       return result;
     } catch (error) {
-      const errorMessage = error instanceof Error ? error.message : '获取订单簿失败';
+      const errorMessage = error instanceof Error ? error.message : 'Failed to get orderbook';
       setError({ message: errorMessage });
       throw error;
     } finally {
@@ -132,7 +132,7 @@ export function useCoinoneApi() {
       const result = await coinoneClient.getTicker(quoteCurrency, targetCurrency);
       return result;
     } catch (error) {
-      const errorMessage = error instanceof Error ? error.message : '获取Ticker信息失败';
+      const errorMessage = error instanceof Error ? error.message : 'Failed to get ticker info';
       setError({ message: errorMessage });
       throw error;
     } finally {
@@ -145,7 +145,7 @@ export function useCoinoneApi() {
   // 获取余额
   const getBalance = useCallback(async (currency?: string) => {
     if (!credentials) {
-      setError({ message: 'API密钥未配置' });
+      setError({ message: 'API key not configured' });
       return null;
     }
 
@@ -156,7 +156,7 @@ export function useCoinoneApi() {
       const result = await coinoneClient.getBalance(credentials, currency);
       return result;
     } catch (error) {
-      const errorMessage = error instanceof Error ? error.message : '获取余额失败';
+      const errorMessage = error instanceof Error ? error.message : 'Failed to get balance';
       setError({ message: errorMessage });
       throw error;
     } finally {
@@ -167,7 +167,7 @@ export function useCoinoneApi() {
   // 获取用户信息
   const getUserInfo = useCallback(async () => {
     if (!credentials) {
-      setError({ message: 'API密钥未配置' });
+      setError({ message: 'API key not configured' });
       return null;
     }
 
@@ -193,12 +193,12 @@ export function useCoinoneApi() {
       const result = await response.json();
       
       if (!result.success) {
-        throw new Error(result.error || '获取用户信息失败');
+        throw new Error(result.error || 'Failed to get user info');
       }
 
       return result.data;
     } catch (error) {
-      const errorMessage = error instanceof Error ? error.message : '获取用户信息失败';
+      const errorMessage = error instanceof Error ? error.message : 'Failed to get user info';
       setError({ message: errorMessage });
       throw error;
     } finally {
@@ -215,7 +215,7 @@ export function useCoinoneApi() {
     days?: number;         // 查询天数 (1-90)，默认30天
   } = {}) => {
     if (!credentials) {
-      setError({ message: 'API密钥未配置' });
+      setError({ message: 'API key not configured' });
       return null;
     }
 
@@ -246,7 +246,7 @@ export function useCoinoneApi() {
       const result = await response.json();
       
       if (!result.success) {
-        throw new Error(result.error || '获取交易历史失败');
+        throw new Error(result.error || 'Failed to get transaction history');
       }
 
       return {
@@ -254,7 +254,7 @@ export function useCoinoneApi() {
         query_params: result.query_params // 返回查询参数信息
       };
     } catch (error) {
-      const errorMessage = error instanceof Error ? error.message : '获取交易历史失败';
+      const errorMessage = error instanceof Error ? error.message : 'Failed to get transaction history';
       setError({ message: errorMessage });
       throw error;
     } finally {
@@ -265,7 +265,7 @@ export function useCoinoneApi() {
   // 获取存币地址 (V2 API)
   const getDepositAddress = useCallback(async () => {
     if (!credentials) {
-      setError({ message: 'API密钥未配置' });
+      setError({ message: 'API key not configured' });
       return null;
     }
 
@@ -276,7 +276,7 @@ export function useCoinoneApi() {
       const result = await coinoneClient.getDepositAddress(credentials);
       return result;
     } catch (error) {
-      const errorMessage = error instanceof Error ? error.message : '获取存币地址失败';
+      const errorMessage = error instanceof Error ? error.message : 'Failed to get deposit address';
       setError({ message: errorMessage });
       throw error;
     } finally {
@@ -287,7 +287,7 @@ export function useCoinoneApi() {
   // 获取提币地址列表 (V2.1 API)
   const getWithdrawalAddresses = useCallback(async (currency?: string) => {
     if (!credentials) {
-      setError({ message: 'API密钥未配置' });
+      setError({ message: 'API key not configured' });
       return null;
     }
 
@@ -298,7 +298,7 @@ export function useCoinoneApi() {
       const result = await coinoneClient.getWithdrawalAddresses(credentials, currency);
       return result;
     } catch (error) {
-      const errorMessage = error instanceof Error ? error.message : '获取提币地址失败';
+      const errorMessage = error instanceof Error ? error.message : 'Failed to get withdrawal addresses';
       setError({ message: errorMessage });
       throw error;
     } finally {
@@ -314,7 +314,7 @@ export function useCoinoneApi() {
     secondary_address?: string;
   }) => {
     if (!credentials) {
-      setError({ message: 'API密钥未配置' });
+      setError({ message: 'API key not configured' });
       return null;
     }
 
@@ -325,7 +325,7 @@ export function useCoinoneApi() {
       const result = await coinoneClient.withdrawCoin(credentials, withdrawParams);
       return result;
     } catch (error) {
-      const errorMessage = error instanceof Error ? error.message : '提币操作失败';
+      const errorMessage = error instanceof Error ? error.message : 'Withdrawal operation failed';
       setError({ message: errorMessage });
       throw error;
     } finally {
@@ -348,7 +348,7 @@ export function useCoinoneApi() {
     user_order_id?: string;
   }) => {
     if (!credentials) {
-      setError({ message: 'API密钥未配置' });
+      setError({ message: 'API key not configured' });
       return null;
     }
 
@@ -359,7 +359,7 @@ export function useCoinoneApi() {
       const result = await coinoneClient.createOrder(credentials, orderParams);
       return result;
     } catch (error) {
-      const errorMessage = error instanceof Error ? error.message : '交易订单创建失败';
+      const errorMessage = error instanceof Error ? error.message : 'Failed to create trade order';
       setError({ message: errorMessage });
       throw error;
     } finally {
@@ -456,7 +456,7 @@ export function useCoinoneApi() {
     order_type?: string[];
   }) => {
     if (!credentials) {
-      setError({ message: 'API密钥未配置' });
+      setError({ message: 'API key not configured' });
       return null;
     }
 
@@ -467,7 +467,7 @@ export function useCoinoneApi() {
       const result = await coinoneClient.getActiveOrders(credentials, queryParams);
       return result;
     } catch (error) {
-      const errorMessage = error instanceof Error ? error.message : '查询未成交订单失败';
+      const errorMessage = error instanceof Error ? error.message : 'Failed to query active orders';
       setError({ message: errorMessage });
       throw error;
     } finally {

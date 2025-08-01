@@ -266,7 +266,7 @@ export default function TradePage() {
     <div className="min-h-screen bg-base-200">
       <div className="container mx-auto px-4 py-4">
         <div className="max-w-6xl mx-auto">
-          <h1 className="text-xl font-bold mb-4">数字货币交易</h1>
+          <h1 className="text-xl font-bold mb-4">Cryptocurrency Trading</h1>
           
           {/* 连接状态提示 */}
           {!isConnected && (
@@ -274,7 +274,7 @@ export default function TradePage() {
               <svg xmlns="http://www.w3.org/2000/svg" className="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z" />
               </svg>
-              <span>请先配置API密钥才能进行交易</span>
+              <span>Please configure API keys first to start trading</span>
             </div>
           )}
 
@@ -293,15 +293,15 @@ export default function TradePage() {
             <div className="lg:col-span-2">
               <div className="card bg-base-100 shadow-sm">
                 <div className="card-body p-4">
-                  <h2 className="card-title text-lg mb-3">创建订单</h2>
+                  <h2 className="card-title text-lg mb-3">Create Order</h2>
                   
                   {/* 交易对选择 */}
                   <div className="form-control mb-3">
                     <label className="label py-1">
-                      <span className="label-text text-sm font-medium">交易对</span>
+                      <span className="label-text text-sm font-medium">Trading Pair</span>
                       {marketPrice && (
                         <span className="label-text-alt text-xs">
-                          当前价格: {formatNumber(marketPrice, 0)} KRW
+                          Current Price: {formatNumber(marketPrice, 0)} KRW
                         </span>
                       )}
                     </label>
@@ -327,7 +327,7 @@ export default function TradePage() {
                   <div className="grid grid-cols-2 gap-3 mb-3">
                     <div className="form-control">
                       <label className="label py-1">
-                        <span className="label-text text-sm font-medium">订单类型</span>
+                        <span className="label-text text-sm font-medium">Order Type</span>
                       </label>
                       <select 
                         className="select select-bordered select-sm"
@@ -335,15 +335,15 @@ export default function TradePage() {
                         onChange={(e) => setOrderType(e.target.value as OrderType)}
                         disabled={isLoading || isSubmitting}
                       >
-                        <option value="LIMIT">限价订单</option>
-                        <option value="MARKET">市价订单</option>
-                        <option value="STOP_LIMIT">止损限价</option>
+                        <option value="LIMIT">Limit Order</option>
+                        <option value="MARKET">Market Order</option>
+                        <option value="STOP_LIMIT">Stop Limit</option>
                       </select>
                     </div>
 
                     <div className="form-control">
                       <label className="label py-1">
-                        <span className="label-text text-sm font-medium">交易方向</span>
+                        <span className="label-text text-sm font-medium">Side</span>
                       </label>
                       <div className="join w-full">
                         <button 
@@ -351,14 +351,14 @@ export default function TradePage() {
                           onClick={() => setOrderSide('BUY')}
                           disabled={isLoading || isSubmitting}
                         >
-                          买入
+                          Buy
                         </button>
                         <button 
                           className={`btn btn-sm join-item flex-1 ${orderSide === 'SELL' ? 'btn-error' : 'btn-outline'}`}
                           onClick={() => setOrderSide('SELL')}
                           disabled={isLoading || isSubmitting}
                         >
-                          卖出
+                          Sell
                         </button>
                       </div>
                     </div>
@@ -370,21 +370,21 @@ export default function TradePage() {
                     {(orderType === 'LIMIT' || orderType === 'STOP_LIMIT') && (
                       <div className="form-control">
                         <label className="label py-1">
-                          <span className="label-text text-sm">价格 (KRW)</span>
+                          <span className="label-text text-sm">Price (KRW)</span>
                           {marketPrice && (
                             <button 
                               className="label-text-alt text-xs link link-primary"
                               onClick={() => setPrice(marketPrice)}
                               type="button"
                             >
-                              使用市价
+                              Use Market Price
                             </button>
                           )}
                         </label>
                         <input 
                           type="number"
                           step="0.01"
-                          placeholder="输入价格"
+                          placeholder="Enter price"
                           className="input input-bordered input-sm"
                           value={price}
                           onChange={(e) => setPrice(e.target.value)}
@@ -397,15 +397,15 @@ export default function TradePage() {
                     {(orderType === 'LIMIT' || orderType === 'STOP_LIMIT' || (orderType === 'MARKET' && orderSide === 'SELL')) && (
                       <div className="form-control">
                         <label className="label py-1">
-                          <span className="label-text text-sm">数量 ({selectedPair.target})</span>
+                          <span className="label-text text-sm">Quantity ({selectedPair.target})</span>
                           <span className="label-text-alt text-xs">
-                            可用: {formatNumber(getCurrentBalance(selectedPair.target))} {selectedPair.target}
+                            Available: {formatNumber(getCurrentBalance(selectedPair.target))} {selectedPair.target}
                           </span>
                         </label>
                         <input 
                           type="number"
                           step="0.00000001"
-                          placeholder="输入数量"
+                          placeholder="Enter quantity"
                           className="input input-bordered input-sm"
                           value={qty}
                           onChange={(e) => setQty(e.target.value)}
@@ -419,18 +419,18 @@ export default function TradePage() {
                       <div className="form-control">
                         <label className="label py-1">
                           <span className="label-text text-sm">
-                            总额 (KRW) {orderType === 'LIMIT' && '(计算值)'}
+                            Total (KRW) {orderType === 'LIMIT' && '(Calculated)'}
                           </span>
                           {orderType === 'MARKET' && orderSide === 'BUY' && (
                             <span className="label-text-alt text-xs">
-                              可用: {formatNumber(getCurrentBalance(selectedPair.quote), 0)} KRW
+                              Available: {formatNumber(getCurrentBalance(selectedPair.quote), 0)} KRW
                             </span>
                           )}
                         </label>
                         <input 
                           type="number"
                           step="0.01"
-                          placeholder="输入总额"
+                          placeholder="Enter total amount"
                           className="input input-bordered input-sm"
                           value={amount}
                           onChange={(e) => setAmount(e.target.value)}
@@ -444,12 +444,12 @@ export default function TradePage() {
                     {orderType === 'STOP_LIMIT' && (
                       <div className="form-control">
                         <label className="label py-1">
-                          <span className="label-text text-sm">触发价格 (KRW)</span>
+                          <span className="label-text text-sm">Trigger Price (KRW)</span>
                         </label>
                         <input 
                           type="number"
                           step="0.01"
-                          placeholder="输入触发价格"
+                          placeholder="Enter trigger price"
                           className="input input-bordered input-sm"
                           value={triggerPrice}
                           onChange={(e) => setTriggerPrice(e.target.value)}
@@ -464,7 +464,7 @@ export default function TradePage() {
                     {orderType === 'LIMIT' && (
                       <div className="form-control">
                         <label className="label cursor-pointer py-1">
-                          <span className="label-text text-sm">仅挂单 (Post Only)</span>
+                          <span className="label-text text-sm">Post Only</span>
                           <input 
                             type="checkbox" 
                             className="checkbox checkbox-sm" 
@@ -489,10 +489,10 @@ export default function TradePage() {
                       {isLoading || isSubmitting ? (
                         <>
                           <span className="loading loading-spinner loading-xs"></span>
-                          处理中...
+                          Processing...
                         </>
                       ) : (
-                        `${orderSide === 'BUY' ? '买入' : '卖出'} ${selectedPair.target}`
+                        `${orderSide === 'BUY' ? 'Buy' : 'Sell'} ${selectedPair.target}`
                       )}
                     </button>
                   </div>
@@ -506,7 +506,7 @@ export default function TradePage() {
                 <div className="card-body p-4">
                   <div className="flex justify-between items-center mb-3">
                     <h3 className="card-title text-lg">
-                      未成交订单 ({selectedPair.name})
+                      Active Orders ({selectedPair.name})
                     </h3>
                     <button 
                       className="btn btn-ghost btn-sm"
@@ -536,10 +536,10 @@ export default function TradePage() {
                               <div className="flex justify-between items-start mb-2">
                                 <div className="flex items-center gap-2">
                                   <span className={`badge badge-sm ${order.side === 'BUY' ? 'badge-success' : 'badge-error'}`}>
-                                    {order.side === 'BUY' ? '买入' : '卖出'}
+                                    {order.side === 'BUY' ? 'Buy' : 'Sell'}
                                   </span>
                                   <span className="badge badge-outline badge-sm">
-                                    {order.type === 'LIMIT' ? '限价' : '止损限价'}
+                                    {order.type === 'LIMIT' ? 'Limit' : 'Stop Limit'}
                                   </span>
                                 </div>
                                 <span className="text-xs text-base-content/60">
@@ -550,32 +550,32 @@ export default function TradePage() {
                               <div className="grid grid-cols-2 gap-4 text-sm">
                                 <div>
                                   <div className="flex justify-between">
-                                    <span className="text-base-content/70">价格:</span>
+                                    <span className="text-base-content/70">Price:</span>
                                     <span className="font-mono">{formatNumber(order.price, 0)} KRW</span>
                                   </div>
                                   <div className="flex justify-between">
-                                    <span className="text-base-content/70">原始数量:</span>
+                                    <span className="text-base-content/70">Original Qty:</span>
                                     <span className="font-mono">{formatNumber(order.original_qty)} {selectedPair.target}</span>
                                   </div>
                                   <div className="flex justify-between">
-                                    <span className="text-base-content/70">剩余数量:</span>
+                                    <span className="text-base-content/70">Remaining:</span>
                                     <span className="font-mono font-semibold">{formatNumber(order.remain_qty)} {selectedPair.target}</span>
                                   </div>
                                 </div>
                                 
                                 <div>
                                   <div className="flex justify-between">
-                                    <span className="text-base-content/70">已成交:</span>
+                                    <span className="text-base-content/70">Executed:</span>
                                     <span className="font-mono">{formatNumber(order.executed_qty)} {selectedPair.target}</span>
                                   </div>
                                   {order.trigger_price && (
                                     <div className="flex justify-between">
-                                      <span className="text-base-content/70">触发价:</span>
+                                      <span className="text-base-content/70">Trigger Price:</span>
                                       <span className="font-mono">{formatNumber(order.trigger_price, 0)} KRW</span>
                                     </div>
                                   )}
                                   <div className="flex justify-between">
-                                    <span className="text-base-content/70">订单ID:</span>
+                                    <span className="text-base-content/70">Order ID:</span>
                                     <span className="font-mono text-xs">{order.order_id.slice(-8)}</span>
                                   </div>
                                 </div>
@@ -584,13 +584,13 @@ export default function TradePage() {
                               {order.type === 'STOP_LIMIT' && (
                                 <div className="mt-2 pt-2 border-t border-base-300">
                                   <div className="flex items-center gap-2 text-xs">
-                                    <span className="text-base-content/70">状态:</span>
+                                    <span className="text-base-content/70">Status:</span>
                                     <span className={`badge badge-xs ${order.is_triggered ? 'badge-success' : 'badge-warning'}`}>
-                                      {order.is_triggered ? '已触发' : '等待触发'}
+                                      {order.is_triggered ? 'Triggered' : 'Not Triggered'}
                                     </span>
                                     {order.triggered_at && (
                                       <span className="text-base-content/60">
-                                        触发时间: {formatTime(order.triggered_at)}
+                                        Triggered at: {formatTime(order.triggered_at)}
                                       </span>
                                     )}
                                   </div>
@@ -603,14 +603,14 @@ export default function TradePage() {
                     ) : (
                       <div className="text-center py-8 text-base-content/60">
                         <div className="text-4xl mb-2">📋</div>
-                        <div>暂无未成交订单</div>
-                        <div className="text-xs mt-1">创建新订单后将在此显示</div>
+                        <div>No active orders</div>
+                        <div className="text-xs mt-1">New orders will appear here</div>
                       </div>
                     )
                   ) : (
                     <div className="text-center py-8 text-base-content/60">
                       <div className="text-4xl mb-2">🔐</div>
-                      <div>请先连接API查看订单</div>
+                      <div>Please connect API to view orders</div>
                     </div>
                   )}
                 </div>
@@ -624,51 +624,51 @@ export default function TradePage() {
       {showConfirmModal && (
         <div className="modal modal-open">
           <div className="modal-box">
-            <h3 className="font-bold text-lg mb-4">确认订单信息</h3>
+            <h3 className="font-bold text-lg mb-4">Confirm Order Details</h3>
             
             <div className="space-y-3 mb-6">
               <div className="flex justify-between">
-                <span className="text-base-content/70">交易对:</span>
+                <span className="text-base-content/70">Trading Pair:</span>
                 <span className="font-medium">{selectedPair.name}</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-base-content/70">订单类型:</span>
+                <span className="text-base-content/70">Order Type:</span>
                 <span className="font-medium">
-                  {orderType === 'LIMIT' ? '限价订单' : 
-                   orderType === 'MARKET' ? '市价订单' : '止损限价'}
+                  {orderType === 'LIMIT' ? 'Limit Order' : 
+                   orderType === 'MARKET' ? 'Market Order' : 'Stop Limit'}
                 </span>
               </div>
               <div className="flex justify-between">
-                <span className="text-base-content/70">交易方向:</span>
+                <span className="text-base-content/70">Side:</span>
                 <span className={`font-medium ${orderSide === 'BUY' ? 'text-success' : 'text-error'}`}>
-                  {orderSide === 'BUY' ? '买入' : '卖出'}
+                  {orderSide === 'BUY' ? 'Buy' : 'Sell'}
                 </span>
               </div>
               
               {(orderType === 'LIMIT' || orderType === 'STOP_LIMIT') && price && (
                 <div className="flex justify-between">
-                  <span className="text-base-content/70">价格:</span>
+                  <span className="text-base-content/70">Price:</span>
                   <span className="font-medium">{formatNumber(price, 0)} KRW</span>
                 </div>
               )}
               
               {qty && (
                 <div className="flex justify-between">
-                  <span className="text-base-content/70">数量:</span>
+                  <span className="text-base-content/70">Quantity:</span>
                   <span className="font-medium">{qty} {selectedPair.target}</span>
                 </div>
               )}
               
               {amount && (
                 <div className="flex justify-between">
-                  <span className="text-base-content/70">总额:</span>
+                  <span className="text-base-content/70">Total:</span>
                   <span className="font-medium">{formatNumber(amount, 0)} KRW</span>
                 </div>
               )}
               
               {triggerPrice && (
                 <div className="flex justify-between">
-                  <span className="text-base-content/70">触发价格:</span>
+                  <span className="text-base-content/70">Trigger Price:</span>
                   <span className="font-medium">{formatNumber(triggerPrice, 0)} KRW</span>
                 </div>
               )}
@@ -680,7 +680,7 @@ export default function TradePage() {
               <svg xmlns="http://www.w3.org/2000/svg" className="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z" />
               </svg>
-              <span className="text-sm">请确认订单信息无误后再提交</span>
+              <span className="text-sm">Please double-check all order information before submitting</span>
             </div>
             
             <div className="modal-action">
@@ -689,7 +689,7 @@ export default function TradePage() {
                 onClick={() => setShowConfirmModal(false)}
                 disabled={isSubmitting}
               >
-                取消
+                Cancel
               </button>
               <button 
                 className={`btn ${orderSide === 'BUY' ? 'btn-success' : 'btn-error'}`}
@@ -699,10 +699,10 @@ export default function TradePage() {
                 {isSubmitting ? (
                   <>
                     <span className="loading loading-spinner loading-sm"></span>
-                    提交中...
+                    Submitting...
                   </>
                 ) : (
-                  '确认提交'
+                  'Confirm Order'
                 )}
               </button>
             </div>

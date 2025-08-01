@@ -215,10 +215,10 @@ export interface TransactionRecord {
 
 export type TransactionStatus = 
   | 'DEPOSIT_WAIT'           // 入金大기 중
-  | 'DEPOSIT_SUCCESS'        // 入金完료
+  | 'DEPOSIT_SUCCESS'        // 入金완료
   | 'DEPOSIT_FAIL'           // 入金실패
   | 'DEPOSIT_REFUND'         // 入金환급
-  | 'DEPOSIT_REJECT'         // 入금거부
+  | 'DEPOSIT_REJECT'         // 入金거부
   | 'WITHDRAWAL_REGISTER'    // 출금등록
   | 'WITHDRAWAL_WAIT'        // 출금대기 중
   | 'WITHDRAWAL_SUCCESS'     // 출금완료
@@ -265,7 +265,7 @@ export class CoinoneServerClientV2 {
     
     for (let attempt = 1; attempt <= maxRetries; attempt++) {
       try {
-        console.log(`尝试第 ${attempt} 次请求: ${url}`);
+        console.log(`Attempt ${attempt} for request: ${url}`);
         
         // 创建AbortController处理超时
         const controller = new AbortController();
@@ -277,11 +277,11 @@ export class CoinoneServerClientV2 {
         });
         
         clearTimeout(timeoutId);
-        console.log(`请求成功: ${response.status} ${response.statusText}`);
+        console.log(`Request successful: ${response.status} ${response.statusText}`);
         return response;
         
       } catch (error) {
-        console.error(`第 ${attempt} 次请求失败:`, error);
+        console.error(`Attempt ${attempt} failed:`, error);
         
         if (attempt === maxRetries) {
           throw error;
@@ -289,12 +289,12 @@ export class CoinoneServerClientV2 {
         
         // 指数退避：1秒、2秒、4秒
         const delay = Math.pow(2, attempt - 1) * 1000;
-        console.log(`等待 ${delay}ms 后重试...`);
+        console.log(`Waiting ${delay}ms before retry...`);
         await new Promise(resolve => setTimeout(resolve, delay));
       }
     }
     
-    throw new Error('所有重试都失败了');
+    throw new Error('All retry attempts failed');
   }
 
   /**
@@ -305,11 +305,11 @@ export class CoinoneServerClientV2 {
     const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
     
     if (!uuidRegex.test(accessToken)) {
-      throw new Error('Access Token 必须是有效的UUID格式');
+      throw new Error('Access Token must be a valid UUID format');
     }
     
     if (!uuidRegex.test(secretKey)) {
-      throw new Error('Secret Key 必须是有效的UUID格式');
+      throw new Error('Secret Key must be a valid UUID format');
     }
 
     this.credentials = { accessToken, secretKey };
@@ -327,7 +327,7 @@ export class CoinoneServerClientV2 {
    */
   private ensureCredentials(): ApiCredentials {
     if (!this.credentials) {
-      throw new Error('API 凭证未配置，请先调用 setCredentials()');
+      throw new Error('API credentials not configured, please call setCredentials() first');
     }
     return this.credentials;
   }
@@ -438,7 +438,7 @@ export class CoinoneServerClientV2 {
 
       // 步骤6：检查HTTP状态
       if (!response.ok) {
-        throw new Error(`HTTP 错误: ${response.status} ${response.statusText}`);
+        throw new Error(`HTTP error: ${response.status} ${response.statusText}`);
       }
 
       // 步骤7：解析响应
@@ -448,15 +448,15 @@ export class CoinoneServerClientV2 {
       if (result.result === 'error') {
         // 检查是否是用户信息API的错误格式
         const errorCode = result.error_code || (result as unknown as { errorCode?: string }).errorCode;
-        throw new Error(`API 错误: ${errorCode} - ${result.error_msg || '未知错误'}`);
+        throw new Error(`API error: ${errorCode} - ${result.error_msg || 'Unknown error'}`);
       }
 
       return result as T;
 
     } catch (error) {
       // 增强错误信息，便于调试
-      const errorMessage = error instanceof Error ? error.message : '未知错误';
-      console.error(`Coinone API 请求失败 [${endpoint}]:`, {
+      const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+      console.error(`Coinone API request failed [${endpoint}]:`, {
         error: errorMessage,
         endpoint,
         additionalData: Object.keys(additionalData)
@@ -486,7 +486,7 @@ export class CoinoneServerClientV2 {
     );
     
     if (!currencyBalance) {
-      throw new Error(`未找到货币 ${currency} 的余额信息`);
+      throw new Error(`Balance information not found for currency ${currency}`);
     }
     
     return currencyBalance;
@@ -502,7 +502,7 @@ export class CoinoneServerClientV2 {
       await this.getBalance();
       return true;
     } catch (error) {
-      console.error('API连接测试失败:', error);
+      console.error('API connection test failed:', error);
       return false;
     }
   }
@@ -652,16 +652,16 @@ export class CoinoneServerClientV2 {
     // 验证时间范围：最大90天
     const maxRange = 90 * 24 * 60 * 60 * 1000; // 90天的毫秒数
     if (params.to_ts - params.from_ts > maxRange) {
-      throw new Error('时间范围不能超过90天');
+      throw new Error('Time range cannot exceed 90 days');
     }
     
     if (params.from_ts >= params.to_ts) {
-      throw new Error('开始时间必须早于结束时间');
+      throw new Error('Start time must be earlier than end time');
     }
     
     const now = Date.now();
     if (params.from_ts > now || params.to_ts > now) {
-      throw new Error('时间不能晚于当前时间');
+      throw new Error('Time cannot be later than current time');
     }
     
     // 准备请求参数
@@ -725,21 +725,21 @@ export class CoinoneServerClientV2 {
       });
 
       if (!response.ok) {
-        throw new Error(`HTTP 错误: ${response.status} ${response.statusText}`);
+        throw new Error(`HTTP error: ${response.status} ${response.statusText}`);
       }
 
       const result = await response.json();
       
       if (result.result === 'error') {
         const errorCode = result.errorCode || result.error_code;
-        throw new Error(`API 错误: ${errorCode} - ${result.error_msg || '未知错误'}`);
+        throw new Error(`API error: ${errorCode} - ${result.error_msg || 'Unknown error'}`);
       }
 
       return result as T;
 
     } catch (error) {
-      const errorMessage = error instanceof Error ? error.message : '未知错误';
-      console.error(`Coinone V2 API 请求失败 [${endpoint}]:`, {
+      const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+      console.error(`Coinone V2 API request failed [${endpoint}]:`, {
         error: errorMessage,
         endpoint,
         additionalData: Object.keys(additionalData)

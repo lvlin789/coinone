@@ -22,7 +22,7 @@ export default function AppHeader() {
             const name = userInfo.userInfo.mobileInfo?.userName ||
                         userInfo.userInfo.emailInfo?.email?.split('@')[0] ||
                         userInfo.userInfo.virtualAccountInfo?.depositor ||
-                        '用户';
+                        'User';
             
             const email = userInfo.userInfo.emailInfo?.email || '';
             
@@ -32,15 +32,15 @@ export default function AppHeader() {
         } catch (error) {
           console.error('获取用户信息失败:', error);
           // 如果获取失败，显示默认信息
-          setUserName('用户');
+          setUserName('User');
           setUserEmail('');
         } finally {
           setIsLoadingUserInfo(false);
         }
       } else {
         // 没有连接时显示默认信息
-        setUserName('未连接');
-        setUserEmail('请配置API密钥');
+        setUserName('Not Connected');
+        setUserEmail('Please configure API keys');
       }
     };
 
@@ -64,10 +64,10 @@ export default function AppHeader() {
           ) : (
             <>
               <span className="text-base font-medium text-base-content">
-                {userName || '用户'}
+                {userName || 'User'}
               </span>
               <span className="text-sm text-base-content/70">
-                {userEmail || '邮箱未设置'}
+                {userEmail || 'Email not set'}
               </span>
             </>
           )}
@@ -87,7 +87,7 @@ export default function AppHeader() {
         <button 
           className="btn btn-ghost gap-2"
           onClick={handleRefresh}
-          title="刷新页面"
+          title="Refresh page"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -103,7 +103,7 @@ export default function AppHeader() {
               d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99"
             />
           </svg>
-          刷新
+          Refresh
         </button>
       </div>
     </div>

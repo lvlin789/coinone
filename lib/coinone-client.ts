@@ -102,7 +102,7 @@ export class CoinoneClient {
 
       return await response.json();
     } catch (error) {
-      console.error('获取报价单位失败:', error);
+      console.error('Failed to get quote units:', error);
       throw error;
     }
   }
@@ -130,7 +130,7 @@ export class CoinoneClient {
 
       return await response.json();
     } catch (error) {
-      console.error('获取订单簿失败:', error);
+      console.error('Failed to get orderbook:', error);
       throw error;
     }
   }
@@ -157,7 +157,7 @@ export class CoinoneClient {
 
       return await response.json();
     } catch (error) {
-      console.error('获取ticker信息失败:', error);
+      console.error('Failed to get ticker info:', error);
       throw error;
     }
   }
@@ -181,7 +181,7 @@ export class CoinoneClient {
       const result = await response.json();
       return result.success;
     } catch (error) {
-      console.error('测试连接失败:', error);
+      console.error('Connection test failed:', error);
       throw error;
     }
   }
@@ -207,7 +207,7 @@ export class CoinoneClient {
       }
       return result.data;
     } catch (error) {
-      console.error('获取余额失败:', error);
+      console.error('Failed to get balance:', error);
       throw error;
     }
   }
@@ -232,7 +232,7 @@ export class CoinoneClient {
       }
       return result.data;
     } catch (error) {
-      console.error('获取存币地址失败:', error);
+      console.error('Failed to get deposit address:', error);
       throw error;
     }
   }
@@ -258,7 +258,7 @@ export class CoinoneClient {
       }
       return result.data;
     } catch (error) {
-      console.error('获取提币地址失败:', error);
+      console.error('Failed to get withdrawal addresses:', error);
       throw error;
     }
   }
@@ -289,7 +289,7 @@ export class CoinoneClient {
       }
       return result.data;
     } catch (error) {
-      console.error('提币操作失败:', error);
+      console.error('Withdrawal operation failed:', error);
       throw error;
     }
   }
@@ -327,7 +327,7 @@ export class CoinoneClient {
       }
       return result.data;
     } catch (error) {
-      console.error('创建订单失败:', error);
+      console.error('Failed to create order:', error);
       throw error;
     }
   }
@@ -451,7 +451,7 @@ export class CoinoneClient {
       }
       return result.data;
     } catch (error) {
-      console.error('查询未成交订单失败:', error);
+      console.error('Failed to query active orders:', error);
       throw error;
     }
   }

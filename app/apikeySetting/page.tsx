@@ -59,7 +59,7 @@ export default function ApiKeySetting() {
   };
 
   const handleDelete = () => {
-    if (window.confirm('确定要删除当前的 API Key 吗？此操作不可恢复。')) {
+    if (window.confirm('Are you sure you want to delete the current API Key? This action cannot be undone.')) {
       const success = clearApiCredentials();
       if (success) {
         setAccessKey('');
@@ -108,7 +108,7 @@ export default function ApiKeySetting() {
           <svg xmlns="http://www.w3.org/2000/svg" className="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
           </svg>
-          <span>操作成功完成！</span>
+          <span>Operation completed successfully!</span>
         </div>
       )}
 
@@ -118,21 +118,21 @@ export default function ApiKeySetting() {
           <svg xmlns="http://www.w3.org/2000/svg" className="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
           </svg>
-          <span>{error?.message || '操作失败，请检查输入信息'}</span>
+          <span>{error?.message || 'Operation failed, please check your input'}</span>
         </div>
       )}
 
       {/* 标题 */}
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-base-content mb-2">API Key 管理</h1>
-        <p className="text-base-content/70">配置您的交易所 API 密钥以启用交易功能</p>
+        <h1 className="text-3xl font-bold text-base-content mb-2">API Key Management</h1>
+        <p className="text-base-content/70">Configure your exchange API keys to enable trading functionality</p>
       </div>
 
       {/* 连接状态指示器 */}
       <div className="mb-6">
         <div className="flex items-center gap-2">
           <div className={`badge ${isConnected ? 'badge-success' : 'badge-warning'}`}>
-            {isConnected ? '已连接' : '未连接'}
+            {isConnected ? 'Connected' : 'Not Connected'}
           </div>
           {isConnected && credentials && (
             <span className="text-sm text-base-content/70">
@@ -150,11 +150,11 @@ export default function ApiKeySetting() {
             <div className="form-control">
               <label className="label">
                 <span className="label-text font-medium">Access Key</span>
-                <span className="label-text-alt text-error">*必填</span>
+                <span className="label-text-alt text-error">*Required</span>
               </label>
               <input
                 type="text"
-                placeholder="请输入 Access Key"
+                placeholder="Enter Access Key"
                 className="input input-bordered w-full"
                 value={accessKey}
                 onChange={(e) => setAccessKey(e.target.value)}
@@ -162,7 +162,7 @@ export default function ApiKeySetting() {
               />
               <label className="label">
                 <span className="label-text-alt text-base-content/60">
-                  从 Coinone 交易所获取的 Access Token
+                  Access Token obtained from Coinone exchange
                 </span>
               </label>
             </div>
@@ -171,11 +171,11 @@ export default function ApiKeySetting() {
             <div className="form-control">
               <label className="label">
                 <span className="label-text font-medium">Secret Key</span>
-                <span className="label-text-alt text-error">*必填</span>
+                <span className="label-text-alt text-error">*Required</span>
               </label>
               <input
                 type="password"
-                placeholder="请输入 Secret Key"
+                placeholder="Enter Secret Key"
                 className="input input-bordered w-full"
                 value={secretKey}
                 onChange={(e) => setSecretKey(e.target.value)}
@@ -183,7 +183,7 @@ export default function ApiKeySetting() {
               />
               <label className="label">
                 <span className="label-text-alt text-base-content/60">
-                  私密密钥，请妥善保管
+                  Private key, please keep it secure
                 </span>
               </label>
             </div>
@@ -194,9 +194,9 @@ export default function ApiKeySetting() {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.728-.833-2.498 0L3.732 16c-.77.833.192 2.5 1.732 2.5z" />
               </svg>
               <div>
-                <h3 className="font-bold">安全提醒</h3>
+                <h3 className="font-bold">Security Notice</h3>
                 <div className="text-xs">
-                  请确保 API Key 具有适当的权限设置，建议只开启余额查询和交易权限，避免开启出金权限。
+                  Please ensure your API Key has appropriate permissions. We recommend enabling only balance inquiry and trading permissions, avoiding withdrawal permissions.
                 </div>
               </div>
             </div>
@@ -215,7 +215,7 @@ export default function ApiKeySetting() {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4" />
                   </svg>
                 )}
-                保存配置
+                Save Configuration
               </button>
               
               <button
@@ -230,7 +230,7 @@ export default function ApiKeySetting() {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
                 )}
-                测试连接
+                Test Connection
               </button>
               
               <button
@@ -245,7 +245,7 @@ export default function ApiKeySetting() {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                   </svg>
                 )}
-                删除配置
+                Delete Configuration
               </button>
             </div>
           </div>

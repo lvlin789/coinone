@@ -9,7 +9,7 @@ export default function Dock() {
   const navItems = [
     {
       path: '/',
-      label: 'trade',
+      label: 'Trade',
       icon: (
         <svg className="size-[1.2em]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
           <g fill="currentColor" strokeLinejoin="miter" strokeLinecap="butt">
@@ -21,7 +21,7 @@ export default function Dock() {
     },
     {
       path: '/walletAddress',
-      label: 'Wallet Address',
+      label: 'Wallet',
       icon: (
         <svg className="size-[1.2em]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
           <g fill="currentColor" strokeLinejoin="miter" strokeLinecap="butt">
@@ -34,7 +34,7 @@ export default function Dock() {
     },
     {
       path: '/history',
-      label: 'history',
+      label: 'History',
       icon: (
         <svg className="size-[1.2em]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
           <g fill="currentColor" strokeLinejoin="miter" strokeLinecap="butt">
